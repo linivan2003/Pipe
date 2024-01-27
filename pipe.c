@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
         perror("fork");
         return -1;
     }
-	if (child_pid == 0){  //child process
+	if (child_pid == 0){  //child process    //  1st child 1st argument
 		close(pipefd[0]);
 		dup2(pipefd[1], STDOUT_FILENO);
 		close(pipefd[1]);
@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
 		close(pipefd[0]);
 		pipe(pipefd); //new fork and child
 		child_pid = fork();
-		if (child_pid == 0){ //2nd child 2nd argument
+		if (child_pid == 0){ //2nd child 2nd argument   
 			close(pipefd[0]);
 			dup2(pipefd[1],STDOUT_FILENO);
 			close(pipefd[1]);
@@ -47,7 +47,7 @@ int main(int argc, char *argv[])
 		}
 		pipe(pipefd);
 		child_pid = fork();  //new fork and child
-		if (child_pid == 0){ //2nd child 2nd argument
+		if (child_pid == 0){ //3rd child 3rd argument
 			execlp(argv[3],argv[3],NULL);
 		}
 	}
