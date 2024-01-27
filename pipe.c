@@ -22,16 +22,34 @@ int main(int argc, char *argv[])
         perror("fork");
         return -1;
     }
-	if (child_pid == 0){
+	if (child_pid == 0){  //child process
 		close(pipefd[0]);
 		dup2(pipefd[1], STDOUT_FILENO);
 		close(pipefd[1]);
 		execlp(argv[1], argv[1], NULL);
-	} else{
+		wait(NULL);
+	} else{   //parent process
 		close(pipefd[1]);
 		dup2(pipefd[0], STDIN_FILENO);
 		close(pipefd[0]);
-		execlp(argv[2], argv[2], NULL);
+		pipe(pipefd); //new fork and child
+		child_pid = fork();
+		if (child_pid == 0){ //2nd child 2nd argument
+			close(pipefd[0]);
+			dup2(pipefd[1],STDOUT_FILENO);
+			close(pipefd[1]);
+			execlp(argv[2],argv[2],NULL);
+		}
+		else{
+			close(pipefd[1]);
+			dup2(pipefd[0],STDIN_FILENO);
+			close(pipefd[0]);
+		}
+		pipe(pipefd);
+		child_pid = fork();  //new fork and child
+		if (child_pid == 0){ //2nd child 2nd argument
+			execlp(argv[3],argv[3],NULL);
+		}
 	}
 	printf("This line should not be reached.\n");
 
