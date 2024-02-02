@@ -2,16 +2,26 @@
 
 ## Pipe Up
 
-One sentence description test
+Pipe is a C script that emulates the functionality of the pipe(|) operator in bash.
 
 ## Building
 
-Explain briefly how to build your program
+```bash
+make
+```
 
 ## Running
+```bash
+./pipe ls cat 
+```
+Should return 
 
-Show an example run of your program, using at least two additional arguments, and what to expect
+Makefile
+pipe
+pipe.c
+README.md
+test_lab1.py
 
 ## Cleaning up
 
-Explain briefly how to clean up all binary files
+make clean
