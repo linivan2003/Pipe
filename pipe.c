@@ -60,13 +60,10 @@ int main(int argc, char *argv[])
 		int status;
     	waitpid(child_pid, &status, 0); // Wait for the specific child process
 
-    	if (WIFEXITED(status)) {
-        	int child_exit_status = WEXITSTATUS(status);
-        	if (child_exit_status != 0) {
-            	printf("Child process exited with non-zero status: %d\n", child_exit_status);
-            	return child_exit_status;
-       		 }
-   		 }
+    	 if (status != 0) {
+        printf("Child process exited with non-zero status: %d\n", status);
+        return (-1);
+    		}
 		}
 	}
 	  // Close all pipes in the parent

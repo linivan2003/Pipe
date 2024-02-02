@@ -23,5 +23,7 @@ README.md
 test_lab1.py
 
 ## Cleaning up
-
+```bash
 make clean
+```
+
